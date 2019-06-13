@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" id="btap1" value="Bai Tap 1 !" onclick="btap1()"/><br/>
+<input type="button" id="btap2" value="Bai Tap 2 !" onclick="btap2()"/><br/>
+<input type="button" id="btap3" value="Bai Tap 3 !" onclick="btap3()"/><br/>
+<div id="showMessage">
+
+</div>
+
+<script>
+    let showDiv = document.getElementById('showMessage');
+    let messDiv = '';
+    let myBirthday = new Date(1991,10,10);
+    let toDay = new Date();
+
+    function checkKytu(a) {
+        regexp = /^[_a]{1}$/;
+        if (regexp.test(a)) {
+            return true;
+        }
+        return false;
+    }
+    
+    function btap3() {
+        let strBtap3 = 'Tôi yêu ngôn ngữ lập trình Javascript';
+        let count = 0;
+        let arrBtap3;
+        for (i=0;i<strBtap3.length;i++) {
+            if (checkKytu(strBtap3[i])) {
+                count++;
+            }
+        }
+        messDiv = 'ky tu "a" xuat hien '+count+' lan !!<br/>';
+        arrBtap3 = strBtap3.split(' ');
+        messDiv += arrBtap3.join('-')+'<br/>';
+        messDiv += strBtap3 + ' co ' + arrBtap3.length + ' tu !!<br/>';
+        messDiv += 'Change <br/>'+strBtap3.replace('Javascript','Typescript');
+        showDiv.innerHTML = messDiv;
+    }
+    
+    
+    
+    
+    function minbtap2() {
+        let arrMin = [5,7,2,9];
+        let min = arrMin[0];
+        for (i = 0; i < arrMin.length; i++) {
+            if (arrMin[i] < min ) {
+                min = arrMin[i];
+            }
+        }
+        return min;
+    }
+    
+    function luythua(a, b) {
+        let c = a;
+        for (i = 0; i < b; i++) {
+            c = c * a;
+        }
+        return c;
+    }
+
+    function dienTichHinhTron(a) {
+        return a*a*Math.PI;
+    }
+
+    function btap2() {
+        messDiv = 'Random 0 - 10 : '+Math.floor(Math.random()*11+0)+'!!!<br/>';
+        messDiv += 'Random 0 - 400 : '+Math.floor(Math.random()*401+0)+'!!!<br/>';
+        messDiv += 'Random 50 - 100 : '+Math.floor(Math.random()*51+50)+'!!!<br/>';
+        messDiv += 'In 5,7,2,9 : Min ='+minbtap2()+'!!!<br/>';
+        messDiv += '5 mu~ 3 = '+luythua(5, 3)+' !!!<br/>';
+        messDiv += 'Dien tich hinh tron co ban kinh 5cm = '+dienTichHinhTron(5)+' cm vuong !!!<br/>';
+
+        showDiv.innerHTML = messDiv;
+    }
+
+
+    function lifeYear(a, b) {
+        return  (b.getFullYear() - a.getFullYear());
+    }
+    function lifeMonth(a, b) {
+        return (lifeYear(a, b)*12+(11-a.getMonth())+b.getMonth()+1);
+    }
+    function lifeDay(a, b) {
+        let count = 0;
+        for (i = myBirthday.getFullYear(); i <= toDay.getFullYear(); i++) {
+            if(((i%4==0) && (i%100!=0)) || (i%400 == 0)){
+                count = count + 366;
+            }else {
+                count = count + 365;
+            }
+        }
+        for (i=myBirthday.getMonth()+1;i<11;i++){
+            if (i == 0 || i == 7 || i == 4 || i ==6 || i == 9 || i == 11 || i == 2){
+                count = count + 31;
+            } else if (i == 3 ||i == 5 || i == 8 || i == 10) {
+                count = count + 30;
+            } else if (i == 1) {
+                if(((i%4==0) && (i%100!=0)) || (i%400 == 0)){
+                    count = count + 29;
+                }else {
+                    count = count + 28;
+                }
+            }
+        }
+        for (i=toDay.getDate()-1;i=0;i++){
+            if (i == 0 || i == 7 || i == 4 || i ==6 || i == 9 || i == 11 || i == 2){
+                count = count + 31;
+            } else if (i == 3 ||i == 5 || i == 8 || i == 10) {
+                count = count + 30;
+            } else if (i == 1) {
+                if(((i%4==0) && (i%100!=0)) || (i%400 == 0)){
+                    count = count + 29;
+                }else {
+                    count = count + 28;
+                }
+            }
+        }
+        switch (myBirthday.getMonth()) {
+            case 0:
+            case 2:
+            case 4:
+            case 6:
+            case 7:
+            case 9:
+            case 11:
+                count = count+31;
+                break;
+            case 3:
+            case 5:
+            case 8:
+            case 10:
+                count = count+30;
+                break;
+            case 1:
+                if(((i%4==0) && (i%100!=0)) || (i%400 == 0)){
+                    count = count + 29;
+                }else {
+                    count = count + 28;
+                }
+                break;
+        }
+
+        count = count+toDay.getDate()-myBirthday.getDate();
+
+        return count;
+    }
+    function lifehours(a, b) {
+        return  lifeDay(a, b) * 24;
+    }
+    function lifeMinutes(a, b) {
+        return lifehours(a, b) * 60;
+    }
+    function lifeSeconds(a, b){
+        return lifeMinutes(a, b) * 60;
+    }
+
+    function btap1() {
+        messDiv = myBirthday.toDateString()+'<br/>';
+        messDiv += toDay.toDateString()+'<br/>';
+        messDiv += lifeYear(myBirthday, toDay)+' year ! <br/>';
+        messDiv += lifeMonth(myBirthday, toDay)+' month ! <br/>'
+        messDiv += lifeDay(myBirthday, toDay)+' day !<br/>';
+        messDiv += lifehours(myBirthday, toDay)+' Hours !<br/>';
+        messDiv += lifeMinutes(myBirthday, toDay)+' Minutes !<br/>';
+        messDiv += lifeSeconds(myBirthday, toDay)+' Seconds !<br/>';
+        showDiv.innerHTML = messDiv;
+    }
+</script>
+</body>
+</html>
